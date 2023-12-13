@@ -6,8 +6,17 @@ const makeId = require('../helpers/token')
 // @route GET api/goals
 // @access Private
 const getUsers = asyncHandler(async (req, res) => {
-    const goals = await userModel.find();
-    res.status(200).json(goals)
+    let id = req.query.id ?? '';
+    if(id != '') {
+        users = await userModel.find({
+            _id: req.query.id
+        });
+
+        users = users[0] ?? false;
+    } else {
+        users = await userModel.find();
+    }
+    res.status(200).json(users)
 })
 
 // @desc Set goals
@@ -37,17 +46,11 @@ const setUser = asyncHandler(async (req, res) => {
 // @route PUT api/goals
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-    const goal = await userModel.findByIdAndUpdate(req.params.id, {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        gender: req.body.gender,
-        userType: req.body.userType,
-        email: req.body.email,
-        mobileNumber: req.body.mobileNumber,
-        password: req.body.password,
-    },{
-        new : true
-    })
+    // let body = JSON.parse(req.body);
+        const goal = await userModel.findByIdAndUpdate(req.params.id, req.body,{
+            new : true
+        })
+        
         res.status(200).send({
             message : `update goals ${req.params.id}`,
             data : goal

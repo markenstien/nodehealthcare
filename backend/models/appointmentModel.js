@@ -6,15 +6,18 @@ const appointmentSchema = mongoose.Schema({
         required: true
     },
 
-    appointeeID : {
+    guestName : {
         type: String,
         required: true
     },
 
-    appointeeDetails : {
+    guestEmail : {
         type : String,
-        email : String,
-        mobileNumber : String
+    },
+
+    guestMobileNumber : {
+        type: String,
+        required: true
     },
 
     appointmentDate : {
@@ -32,10 +35,10 @@ const appointmentSchema = mongoose.Schema({
 
     status: {
         type : String,
-        enum : ['Reserved', 'Arrived', 'Cancelled']
+        enum : ['Reserved', 'Arrived', 'Cancelled'],
     }
 }, {
     timestamps : true
 });
 
-module.exports = mongoose.model('Appointment', paymentSchema);
+module.exports = mongoose.model('Appointment', appointmentSchema);
