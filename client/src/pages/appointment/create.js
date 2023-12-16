@@ -30,6 +30,8 @@ export default function AppointmentCreate() {
             createAppointmentResponse,
         ]);
 
+        window.location.href = '/appointments/index';
+
     }
 
     const pageContent = () => {

@@ -61,7 +61,13 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route DELETE api/goals
 // @access Private
 const deleteUser = asyncHandler(async(req, res) => {
-    res.status(200).send(`delete goals ${req.params.id}`);
+    let response = await userModel.deleteOne({
+        _id : req.params.id
+    });
+    res.status(200).send({
+        message : 'deleted successfully',
+        success : true
+    });
 })
 
 const authenticate = asyncHandler(async(req, res) => {

@@ -50,7 +50,37 @@ const setAppointment = asyncHandler(async(req, res) => {
         appointmentResponse
     ]);
 })
+
+// @desc Update goals
+// @route PUT api/goals
+// @access Private
+const update = asyncHandler(async (req, res) => {
+    // let body = JSON.parse(req.body);
+        const goal = await appointmentModel.findByIdAndUpdate(req.params.id, req.body,{
+            new : true
+        })
+        
+        res.status(200).send({
+            message : `updated ${req.params.id}`,
+            data : goal
+        });
+    }
+)
+// @desc Delete goals
+// @route DELETE api/goals
+// @access Private
+const destroy = asyncHandler(async(req, res) => {
+    const response = await appointmentModel.deleteOne({
+        _id: req.params.id
+    });
+    res.status(200).send({
+        message : 'deleted'
+    });
+})
+
 module.exports = {
     getAppointments,
-    setAppointment
+    setAppointment,
+    update,
+    destroy
 }

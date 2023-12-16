@@ -3,6 +3,7 @@ import { cleanJson, postData } from '../../assets/js/utils';
 import NavigationAuthenticated from '../../components/navigation_authenticated';
 import { useParams } from 'react-router-dom';
 import LayoutAuth from '../../components/layout_auth';
+import PageControlButton from '../../components/page_control_button';
 
 export default function UserEdit() {
     const params = useParams();
@@ -49,11 +50,23 @@ export default function UserEdit() {
         }
     }
 
+    const pageButtons = [
+        <PageControlButton url={'/users/index'} label={'Users'}></PageControlButton>
+    ];
+
+    const deleteUser = async () => {
+        const response = await postData('/api/users/' + params.id, 'DELETE');
+        window.location.href = '/users/index';
+    }
+
     const pageContent = () => {
         return (
             <div className='col-md-6 mx-auto'>
-                <a href="/users/index" className="btn btn-primary btn-sm mb-2">Users Lists</a>
                 <div className='card'>
+                    <div className='card-header'>
+                        <h4 className='card-title'>Edit User</h4>
+                        <button className='btn btn-danger btn-sm' onClick={deleteUser}>Delete</button>
+                    </div>
                     <div className='card-body'>
                         <form method='post' action='' onSubmit={editUser}>
                             <div className='form-group mb-3'>
@@ -139,6 +152,6 @@ export default function UserEdit() {
         );
     }
     return (
-        <LayoutAuth element={pageContent}></LayoutAuth>
+        <LayoutAuth element={pageContent} pageTitle='User Management' pageButtons={pageButtons}></LayoutAuth>
     );
 }

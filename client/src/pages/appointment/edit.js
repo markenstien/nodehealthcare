@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import LayoutAuth from "../../components/layout_auth";
 import { useParams } from "react-router-dom";
+import { postData } from '../../assets/js/utils';
+import '../../components/page_control_button';
+import PageControlButton from "../../components/page_control_button";
+
 export default function AppointmentEdit() {
     const params = useParams();
 
@@ -14,8 +18,17 @@ export default function AppointmentEdit() {
         getAppointment();
     }, []);
 
-    const editAppointment = async () => {
+    const editAppointment = async (event) => {
+        event.preventDefault();
+        const response = await postData('/api/appointments/' + params.id, 'PUT', {
+            guestName : guestName,
+            guestMobileNumber: guestMobileNumber,
+            guestEmail : guestEmail,
+            appointmentDate : appointmentDate,
+            notes : notes
+        });
 
+        window.location.href = '/appointments/index';
     }
 
     const getAppointment = async () => {
@@ -36,7 +49,7 @@ export default function AppointmentEdit() {
                     <h4 className="card-title">Edit Appointment</h4>
                 </div>
                 <div className="card-body">
-                    <form method="post" onSubmit={editAppointment}>
+                    <form onSubmit={editAppointment}>
                         <div className="form-group mb-3">
                             <label>Guest Name</label>
                             <input type="text" className="form-control" id="guest_name"
@@ -88,7 +101,11 @@ export default function AppointmentEdit() {
         );
     }
 
+    const pageButtons = [
+    <PageControlButton url={'/appointments/index'} label={'Appointments'}></PageControlButton>
+    ];
+
     return (
-        <LayoutAuth element={pageContent}></LayoutAuth>
+        <LayoutAuth element={pageContent} pageTitle="Appointment Management" pageButtons={pageButtons}></LayoutAuth>
     );
 }
