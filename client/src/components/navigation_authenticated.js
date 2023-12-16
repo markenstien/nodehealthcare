@@ -6,7 +6,7 @@ export default function NavigationAuthenticated() {
 
     useEffect(() => {
         setAuthData(whoIs());
-    });
+    }, []);
 
     const logoutUser = () => {
         localStorage.removeItem('userAuth');

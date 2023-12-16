@@ -14,7 +14,7 @@ export default function LoginPage() {
         });
 
         if(authenticate.user == false) {
-            
+            alert(authenticate.message);
         } else {
             localStorage.setItem('userAuth', JSON.stringify(authenticate.user));
             window.location.href = '/dashboard/admin';

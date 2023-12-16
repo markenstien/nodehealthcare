@@ -25,6 +25,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/' element={<LoginPage></LoginPage>}></Route>
         <Route path='/users'>
           <Route path='index' element={<UserIndex></UserIndex>}></Route>
           <Route path='create' element={<UserCreate></UserCreate>}></Route>
