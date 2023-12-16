@@ -27,9 +27,6 @@ export default function AppointmentEdit() {
         setGuestEmail(appointmentResponseData.guestEmail ?? '');
         setAppointmentDate(appointmentResponseData.appointmentDate ?? '');
         setNotes(appointmentResponseData.notes ?? '');
-
-        console.log([appointmentResponse, appointmentResponseData]);
-        console.log('test');
     }
 
     const pageContent = () => {

@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const userModel = require('../models/userModel')
 const makeId = require('../helpers/token')
+const validEntityOnly = require('../helpers/validEntityOnly');
 
 // @desc Get goals
 // @route GET api/goals
@@ -27,7 +28,6 @@ const setUser = asyncHandler(async (req, res) => {
         res.status(400).json({message: 'error message'})
     }
 
-    console.log(req.body);
     const goal = await userModel.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -64,9 +64,36 @@ const deleteUser = asyncHandler(async(req, res) => {
     res.status(200).send(`delete goals ${req.params.id}`);
 })
 
+const authenticate = asyncHandler(async(req, res) => {
+    let response = await userModel.find({
+        email : req.body.email
+    });
+
+    if(!response) {
+        res.status(200).send({
+            message : ' no user found ',
+            user : false
+        })
+    } else {
+        let user = response[0];
+        if(user.password != req.body.password) {
+            res.status(200).send({
+                message : ' password unmatched ',
+                user : false
+            })
+        } else {
+            res.status(200).send({
+                message : ' user found ',
+                user : user
+            })
+        }
+    }
+});
+
 module.exports = {
     getUsers,
     setUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    authenticate
 }

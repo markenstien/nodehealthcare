@@ -13,6 +13,12 @@ import DashboardAdmin from './pages/dashboard/admin';
 import AppointmentCreate from './pages/appointment/create';
 import AppointmentIndex from './pages/appointment';
 import AppointmentEdit from './pages/appointment/edit';
+import SpecializationCreate from './pages/specialization/create';
+import SpecializationIndex from './pages/specialization';
+import SpecializationEdit from './pages/specialization/edit';
+import ServiceIndex from './pages/services';
+import ServiceCreate from './pages/services/create';
+import ServiceEdit from './pages/services/edit';
 
 
 function App() {
@@ -24,6 +30,20 @@ function App() {
           <Route path='create' element={<UserCreate></UserCreate>}></Route>
           <Route path='edit/:id' element={<UserEdit></UserEdit>}></Route>
           <Route path='show/:id' element={<UserShow></UserShow>}></Route>
+        </Route>
+
+        <Route path='/specialization'>
+          <Route path='index' element={<SpecializationIndex></SpecializationIndex>}></Route>
+          <Route path='create' element={<SpecializationCreate></SpecializationCreate>}></Route>
+          <Route path='edit/:id' element={<SpecializationEdit></SpecializationEdit>}></Route>
+          <Route path='show' element={<UserShow></UserShow>}></Route>
+        </Route>
+
+        <Route path='/services'>
+          <Route path='index' element={<ServiceIndex></ServiceIndex>}></Route>
+          <Route path='create' element={<ServiceCreate></ServiceCreate>}></Route>
+          <Route path='edit/:id' element={<ServiceEdit></ServiceEdit>}></Route>
+          <Route path='show' element={<UserShow></UserShow>}></Route>
         </Route>
 
         <Route path='/appointments'>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NavigationPublic from "../../components/navigation_public";
+import { postData } from '../../assets/js/utils';
 
 export default function LoginPage() {
     const [email,setEmail] = useState('');
@@ -7,7 +8,18 @@ export default function LoginPage() {
     
     const login = async (event) => {
         event.preventDefault();
-        window.location = '/users/index';
+        let authenticate = await postData('/api/users/authenticate', 'POST', {
+            email : email,
+            password : password
+        });
+
+        if(authenticate.user == false) {
+            
+        } else {
+            localStorage.setItem('userAuth', JSON.stringify(authenticate.user));
+            window.location.href = '/dashboard/admin';
+        }
+        //login
     }
     return(
         <>

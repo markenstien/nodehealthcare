@@ -18,14 +18,17 @@ export default function AppointmentIndex() {
                 <div className="card-body">
                     <div className="table-responsive">
                         <table className="table table-bordered">
-                            <tr>
-                                <th>Guest</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Appointment Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Guest</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Appointment Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             {appointments.map((val,index) => {
                                 return(
                                     <tr key={index}>
@@ -38,6 +41,7 @@ export default function AppointmentIndex() {
                                     </tr>
                                 )
                             })}
+                            </tbody>
                         </table>
                     </div>
                 </div>
