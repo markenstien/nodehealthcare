@@ -37,7 +37,7 @@ export default function UserCreate() {
         });
 
         if(createUserResponse) {
-            window.location = 'users/index';
+            window.location = '/users/index';
         }
     }
 
