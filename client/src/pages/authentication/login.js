@@ -1,13 +1,27 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import NavigationPublic from "../../components/navigation_public";
 import { postData } from '../../assets/js/utils';
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function LoginPage() {
+    const captchaKey = '6LctADUpAAAAAOrgJ8EwATcusc8MFJ9RXNoIapWh';
+
+    const [captchaResponse, setCaptchaResponse] = useState(false);
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     
+    const onChange = async () => {
+        setCaptchaResponse(true);
+    }
+
     const login = async (event) => {
         event.preventDefault();
+
+        if(!captchaResponse) {
+            alert('Captcha not completed');
+            return false;
+        }
+
         let authenticate = await postData('/api/users/authenticate', 'POST', {
             email : email,
             password : password
@@ -19,7 +33,7 @@ export default function LoginPage() {
             localStorage.setItem('userAuth', JSON.stringify(authenticate.user));
             window.location.href = '/dashboard/admin';
         }
-        //login
+        
     }
     return(
         <>
@@ -35,6 +49,8 @@ export default function LoginPage() {
 
                         <div className="card-body">
                             <form method="post" onSubmit={login}>
+                                <ReCAPTCHA sitekey={captchaKey}
+                                onChange={onChange}></ReCAPTCHA>
                                 <div className='form-group mb-3'>
                                     <label htmlFor=''>Email</label>
                                     <input id='email' 

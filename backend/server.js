@@ -3,6 +3,7 @@ const  connectDB = require('./config/db')
 const port = 5000
 const app = express();
 
+
 connectDB()
 
 app.use(express.json())
