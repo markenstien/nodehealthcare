@@ -49,8 +49,6 @@ export default function LoginPage() {
 
                         <div className="card-body">
                             <form method="post" onSubmit={login}>
-                                <ReCAPTCHA sitekey={captchaKey}
-                                onChange={onChange}></ReCAPTCHA>
                                 <div className='form-group mb-3'>
                                     <label htmlFor=''>Email</label>
                                     <input id='email' 
@@ -69,6 +67,15 @@ export default function LoginPage() {
                                     onChange={(event)=>{
                                         setPassword(event.target.value)
                                     }}></input>
+                                </div>
+
+                                
+                                
+                                <div className="mt-3 mb-3" style={{
+                                    textAlign:'center'
+                                }}>
+                                    <ReCAPTCHA sitekey={captchaKey}
+                                    onChange={onChange}></ReCAPTCHA>
                                 </div>
 
                                 <button id='submit' className='btn btn-primary'>Login</button>
